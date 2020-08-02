@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Tab } from 'semantic-ui-react';
 import PeopleList from './PeopleList';
+import GroupList from './GroupList';
 
 class ResultsList extends Component {
     constructor(props) {
@@ -24,12 +25,11 @@ class ResultsList extends Component {
     render() {
         let people = this.state.people || [];
         let groups = this.state.groups || [];
-        const peopleComponent = <PeopleList people={people}/>
 
         const panes = [
           { menuItem: 'People',render: () => <PeopleList people={people}/> },
-          { menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-          { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+          { menuItem: 'Groups', render: () => <GroupList groups={groups}/> },
+          { menuItem: 'Import', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
         ]
         
         // const TabExampleBasic = () => <Tab panes={panes} />
