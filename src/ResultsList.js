@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Tab } from 'semantic-ui-react';
 import PeopleList from './PeopleList';
 import GroupList from './GroupList';
+import UploadFile from './UploadFile';
 
 class ResultsList extends Component {
     constructor(props) {
@@ -29,10 +30,8 @@ class ResultsList extends Component {
         const panes = [
           { menuItem: 'People',render: () => <PeopleList people={people}/> },
           { menuItem: 'Groups', render: () => <GroupList groups={groups}/> },
-          { menuItem: 'Import', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+          { menuItem: 'Import', render: () => <UploadFile/> },
         ]
-        
-        // const TabExampleBasic = () => <Tab panes={panes} />
 
         return (
           <Tab panes={panes} />
