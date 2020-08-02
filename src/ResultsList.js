@@ -4,21 +4,25 @@ import { Table } from 'semantic-ui-react'
 class ResultsList extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: [] };
+        this.state = { 
+          people: null,
+          groups: null
+        };
     }
 
     componentDidMount() {
         fetch("http://localhost:8000/api/people")
           .then(response => response.json())
-          .then(data => this.setState({ data: data.data }));
+          .then(data => this.setState({ people: data.data }));
 
           fetch("http://localhost:8000/api/group")
           .then(response => response.json())
-          .then(data => this.setState({ data: data.data }));
+          .then(data => this.setState({ groups: data.data }));
     }
 
     render() {
-        var data = this.state.data || [];
+        let people = this.state.people || [];
+        let groups = this.state.groups || [];
 
         return (
             <Table celled padded>
@@ -34,7 +38,7 @@ class ResultsList extends Component {
               <Table.Body>
 
               {
-                  data.map((person, index) => {
+                  people.map((person, index) => {
                       return (
                           <Table.Row key={index}>
                               <Table.Cell singleLine>{ person.first_name }</Table.Cell>
