@@ -11,6 +11,10 @@ class ResultsList extends Component {
         fetch("http://localhost:8000/api/people")
           .then(response => response.json())
           .then(data => this.setState({ data: data.data }));
+
+          fetch("http://localhost:8000/api/group")
+          .then(response => response.json())
+          .then(data => this.setState({ data: data.data }));
     }
 
     render() {
