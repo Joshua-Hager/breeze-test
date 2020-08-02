@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { Table } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Table, Tab } from 'semantic-ui-react';
+import PeopleList from './PeopleList';
 
 class ResultsList extends Component {
     constructor(props) {
@@ -23,35 +24,18 @@ class ResultsList extends Component {
     render() {
         let people = this.state.people || [];
         let groups = this.state.groups || [];
+        const peopleComponent = <PeopleList people={people}/>
+
+        const panes = [
+          { menuItem: 'People',render: () => <PeopleList people={people}/> },
+          { menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+          { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+        ]
+        
+        // const TabExampleBasic = () => <Tab panes={panes} />
 
         return (
-            <Table celled padded>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell singleLine>First Name</Table.HeaderCell>
-                  <Table.HeaderCell>Last Name</Table.HeaderCell>
-                  <Table.HeaderCell>Email</Table.HeaderCell>
-                  <Table.HeaderCell>Status</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-
-              {
-                  people.map((person, index) => {
-                      return (
-                          <Table.Row key={index}>
-                              <Table.Cell singleLine>{ person.first_name }</Table.Cell>
-                              <Table.Cell singleLine>{ person.last_name }</Table.Cell>
-                              <Table.Cell singleLine>{ person.email_address }</Table.Cell>
-                              <Table.Cell singleLine>{ person.status }</Table.Cell>
-                          </Table.Row>
-                      );
-                    })
-              }
-
-              </Table.Body>
-            </Table>
+          <Tab panes={panes} />
     );
 }
 
