@@ -46,7 +46,15 @@ class PeopleController extends Controller
             'status'        => Rule::in(['active', 'archived'])
         ]);
 
-        $person = Person::create($request->all());
+        $person = Person::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'first_name'    => $request->first_name,
+                'last_name'     => $request->last_name,
+                'email_address' => $request->email_address,
+                'status'        => $request->status,
+            ]
+        );
 
         return (new PersonResource($person))
             ->response()
