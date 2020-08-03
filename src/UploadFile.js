@@ -11,27 +11,25 @@ class UploadFile extends Component {
         this.onChange = this.onChange.bind(this)
     }
 
-    finishedParsing(results) {
-        console.log(results)
-
-        switch (results.data[0][1]) {
-            case 'group_name':
-                console.log('group');
-                break;
-            case 'first_name':
-                console.log('people');
-                break;
-            default:
-                console.log('oops')
-                break;
-        }
-    }
-
     componentDidUpdate() {
         Papa.parse(this.state.userFile, {
                 complete: (results) => this.finishedParsing(results),
-                header: true
-                //todo: figure out how to clean data of extra spaces and quotes
+                header: true,
+                transformHeader: (header, index) => {
+                    header = header.trim()
+
+                    return header
+                },
+                transform: (input, field) => {
+                    input = input.trim()
+
+                    let index
+                    while ((index = input.indexOf('"')) !== -1 ) {
+                        input = input.replace('"', '')
+                    }
+
+                    return input
+                }
             });
     }
     onChange(e) {
