@@ -12,9 +12,34 @@ class UploadFile extends Component {
         this.onChange = this.onChange.bind(this)
     }
 
+    determineType(result_object) {
+        if (result_object.hasOwnProperty('group_name')) {
+                return 'group';
+            }
+        return 'people';
+    }
+
     componentDidUpdate() {
         Papa.parse(this.state.userFile, {
-                // complete: ,//add upload here
+                complete: (results => results.data.map(
+                    result => {
+                        let endpointType = this.determineType(result)
+                        fetch(`http://localhost:8000/api/${endpointType}`, {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(result),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        })
+                    }
+                  )),
                 header: true,
                 transformHeader: (header, index) => {
                     header = header.trim()
