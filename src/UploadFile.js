@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Papa from 'papaparse';
+import { Input, Segment } from 'semantic-ui-react';
 
 class UploadFile extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class UploadFile extends Component {
 
     componentDidUpdate() {
         Papa.parse(this.state.userFile, {
-                complete: (results) => this.finishedParsing(results),
+                // complete: ,//add upload here
                 header: true,
                 transformHeader: (header, index) => {
                     header = header.trim()
@@ -38,7 +39,15 @@ class UploadFile extends Component {
 
     render() {
         return (
-            <input type="file" name="file" onChange={this.onChange}/>
+            <Segment>
+                <Input
+                    label='Upload CSV File'
+                    placeholder='Select File'
+                    type="file"
+                    accept=".csv"
+                    onChange={this.onChange}
+                />
+            </Segment>
         );
     }
 }
