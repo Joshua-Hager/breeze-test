@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
+import GroupRow from './GroupRow';
 
 function GroupList(props) {
     return (
@@ -16,7 +17,7 @@ function GroupList(props) {
             props.groups.map((group, index) => {
                 return (
                     <Table.Row key={index}>
-                        <Table.Cell singleLine>{ group.group_name }</Table.Cell>
+                        <GroupRow/>
                     </Table.Row>
                 );
               })
