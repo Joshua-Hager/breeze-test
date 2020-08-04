@@ -28,7 +28,7 @@ class ResultsList extends Component {
         let groups = this.state.groups || [];
 
         const panes = [
-          { menuItem: 'People',render: () => <PeopleList people={people}/> },
+          { menuItem: 'People',render: () => <PeopleList people={people} groups={groups}/> },
           { menuItem: 'Groups', render: () => <GroupList groups={groups}/> },
           { menuItem: 'Import', render: () => <UploadFile/> },
         ]
