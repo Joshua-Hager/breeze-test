@@ -17,24 +17,25 @@ class PeopleRow extends Component {
               })
         }
     }
-    groupSelection(event, data, person_id) {
-        // console.log(event, data, person_id);
-        // console.log('I Liiiiiiiiiive')
-        // props.selectedGroup(event, data, person_id)
-        // fetch('http://localhost:8000/api/people', {
-        //       method: 'POST',
-        //       headers: {
-        //       'Content-Type': 'application/json',
-        //       },
-        //       body: JSON.stringify(result),
-        //   })
-        //   .then(response => response.json())
-        //   .then(data => {
-        //       console.log('Success:', data);
-        //   })
-        //   .catch((error) => {
-        //       console.error('Error:', error);
-        //   })
+    groupSelection(event, data) {
+        console.log(event, data);
+
+        fetch(`http://localhost:8000/api/people/${this.state.person.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    group_id: data.value
+                }),
+          })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+          })
+            .catch((error) => {
+                console.error('Error:', error);
+          })
       }
 
     render() {
@@ -50,12 +51,12 @@ class PeopleRow extends Component {
                         search
                         selection
                         defaultValue={this.state.person.group_id}
-                        onChange={this.groupSelection()}
+                        onChange={(event, data) => this.groupSelection(event, data)}
                         options={this.state.groups}
                     />
-            </Table.Cell>
+                </Table.Cell>
             </Table.Row>
-            );
+        );
     }
 }
 
