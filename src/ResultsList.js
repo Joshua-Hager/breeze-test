@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Tab } from 'semantic-ui-react';
+import { Tab } from 'semantic-ui-react';
 import PeopleList from './PeopleList';
 import GroupList from './GroupList';
 import UploadFile from './UploadFile';
@@ -15,12 +15,12 @@ class ResultsList extends Component {
 
     componentDidMount() {
         fetch("http://localhost:8000/api/people")
-          .then(response => response.json())
-          .then(data => this.setState({ people: data.data }));
+            .then(response => response.json())
+            .then(data => this.setState({ people: data.data }));
 
           fetch("http://localhost:8000/api/group")
-          .then(response => response.json())
-          .then(data => this.setState({ groups: data.data }));
+            .then(response => response.json())
+            .then(data => this.setState({ groups: data.data }));
     }
 
     render() {
@@ -28,13 +28,22 @@ class ResultsList extends Component {
         let groups = this.state.groups || [];
 
         const panes = [
-          { menuItem: 'People',render: () => <PeopleList people={people} groups={groups}/> },
-          { menuItem: 'Groups', render: () => <GroupList groups={groups}/> },
-          { menuItem: 'Import', render: () => <UploadFile/> },
+            { menuItem: 'People',render: () => 
+                <PeopleList
+                    people={people}
+                    groups={groups}
+                />
+            },
+            { menuItem: 'Groups', render: () =>
+                <GroupList
+                    groups={groups}
+                />
+            },
+            { menuItem: 'Import', render: () => <UploadFile/> },
         ]
 
         return (
-          <Tab panes={panes} />
+            <Tab panes={panes} />
     );
 }
 
