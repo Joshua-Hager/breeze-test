@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Table, Accordion, Icon, AccordionTitle, AccordionContent } from 'semantic-ui-react';
+import GroupMember from './GroupMember';
 
 class GroupRow extends Component {
     constructor(props) {
@@ -36,7 +37,14 @@ class GroupRow extends Component {
                     <AccordionContent
                         active={this.state.activeIndex === this.state.index}
                     >
-                        <p>Hi</p>
+                        
+                        <ul>
+                            {
+                                this.state.group.members.map(member => {
+                                    return <GroupMember member={member}/>
+                                })
+                            }
+                        </ul>
                     </AccordionContent>
                 </Accordion>
             </Table.Cell>
