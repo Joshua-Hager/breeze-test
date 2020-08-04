@@ -17,7 +17,7 @@ function GroupList(props) {
             props.groups.map((group, index) => {
                 return (
                     <Table.Row key={index}>
-                        <GroupRow/>
+                        <GroupRow group={group}/>
                     </Table.Row>
                 );
               })
