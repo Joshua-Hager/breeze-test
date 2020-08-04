@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Person;
+use App\Models\Group;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -88,5 +89,19 @@ class PeopleControllerTest extends TestCase
         $response = $this->json('GET', '/api/people/' . $person->id);
         $response->assertStatus(404);
 
+    }
+
+    public function testPersonGroupUpdate()
+    {
+        $newGroup  = factory(Group::class)->create();
+        $person = factory(Person::class)->create();
+
+        $updateResponse = $this->json('PATCH', "/api/people/{$person->id}", [
+            'group_id' => $newGroup->id
+        ]);
+        $updateResponse->assertStatus(204);
+        $person->refresh();
+
+        $this->assertEquals($newGroup->id, $person->group_id);
     }
 }
