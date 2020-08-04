@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Group extends Model
 {
+    protected $fillable = [
+        "group_name"
+    ];
+
     public function members(): HasMany
     {
         return $this->hasMany(Person::class);

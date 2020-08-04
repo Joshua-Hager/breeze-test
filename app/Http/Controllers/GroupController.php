@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\GroupCollection;
+use App\Http\Resources\GroupResource;
 use App\Models\Group;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,17 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'group_name'    => 'required|max:191'
+        ]);
+
+        $group = Group::updateOrCreate(
+            ['group_name' => $request->group_name]
+        );
+
+        return (new GroupResource($group))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -70,7 +81,12 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        $request->validate([
+            'group_name'    => 'required|string'
+        ]);
+
+        $group->update($request->all());
+        return response(null, 204);
     }
 
     /**
@@ -81,6 +97,7 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        $group->delete();
+        return response(null, 204)
     }
 }

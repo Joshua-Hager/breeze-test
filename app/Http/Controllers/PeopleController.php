@@ -40,9 +40,9 @@ class PeopleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name'    => 'required|max:255',
-            'last_name'     => 'required|max:255',
-            'email_address' => 'required|email',
+            'first_name'    => 'required|max:191',
+            'last_name'     => 'required|max:191',
+            'email_address' => 'required|email|max:191',
             'status'        => Rule::in(['active', 'archived'])
         ]);
 
@@ -93,6 +93,15 @@ class PeopleController extends Controller
     public function update(Request $request, $id)
     {
         $person = Person::findOrFail($id);
+
+        $request->validate([
+            'first_name'    => 'nullable|max:191',
+            'last_name'     => 'nullable|max:191',
+            'email_address' => 'nullable|email|max:191',
+            'status'        => ['nullable', Rule::in(['active', 'archived'])],
+            'group_id'      => 'nullable|exists:groups,id'
+        ]);
+
         $person->update($request->all());
 
         return response()->json(null, 204);
